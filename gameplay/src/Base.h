@@ -205,7 +205,10 @@ extern int strcmpnocase(const char* s1, const char* s2);
 
 // Scripting
 using std::va_list;
-#include <lua/lua.hpp>
+
+// #include <lua.hpp>
+#define LUA_COMPAT_APIINTCASTS
+#include <lprefix.h>
 
 #define WINDOW_VSYNC        1
 
@@ -231,8 +234,25 @@ using std::va_list;
         #include <GL/glew.h>
         #define GP_USE_VAO
 #elif __linux__
-        #define GLEW_STATIC
-        #include <GL/glew.h>
+        #ifndef LINUX_SDL2
+            #define GLEW_STATIC
+            #include <GL/glew.h>
+        #else
+            #define GL_GLEXT_PROTOTYPES
+            #include <GLES2/gl2.h>
+            #include <GLES2/gl2ext.h>
+            #define glBindVertexArray glBindVertexArrayOES
+            #define glDeleteVertexArrays glDeleteVertexArraysOES
+            #define glGenVertexArrays glGenVertexArraysOES
+            #define glIsVertexArray glIsVertexArrayOES
+            #define glMapBuffer glMapBufferOES
+            #define glUnmapBuffer glUnmapBufferOES
+            #define GL_WRITE_ONLY GL_WRITE_ONLY_OES
+            #define GL_DEPTH24_STENCIL8 GL_DEPTH24_STENCIL8_OES
+            #define glClearDepth glClearDepthf
+            #define OPENGL_ES
+            #define GP_USE_VAO
+        #endif
         #define GP_USE_VAO
 #elif __APPLE__
     #include "TargetConditionals.h"

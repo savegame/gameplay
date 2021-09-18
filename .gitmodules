@@ -1,0 +1,3 @@
+[submodule "libs/luacompat"]
+	path = libs/luacompat
+	url = git@github.com:keplerproject/lua-compat-5.3.git

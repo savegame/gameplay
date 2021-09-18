@@ -40,7 +40,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(GAMEPLAY_LIBRARIES
             stdc++
             gameplay
-            gameplay-deps
+            # gameplay-deps
             m
             dl
             pthread
@@ -55,11 +55,17 @@ ELSE(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         link_directories(${CMAKE_SOURCE_DIR}/external-deps/lib/linux/x86)
     ENDIF(ARCH_DIR STREQUAL "x64")
 
+    # pkg_check_modules(BULLET REQUIRED bullet)
+    # pkg_check_modules(OGG REQUIRED ogg)
+    # pkg_check_modules(VORBIS REQUIRED vorbis)
+    # pkg_check_modules(VORBISFILE REQUIRED vorbisfile)
+    # pkg_check_modules(LUAJIT REQUIRED luajit)
+    pkg_check_modules(GLEW REQUIRED glew)
 
     set(GAMEPLAY_LIBRARIES
             stdc++
             gameplay
-            gameplay-deps
+            # gameplay-deps
             m
             GL
             rt
@@ -69,6 +75,14 @@ ELSE(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
             gtk-x11-2.0
             glib-2.0
             gobject-2.0
+            png
+            ${OGG_LDFLAGS}
+            ${VORBIS_LDFLAGS}
+            ${VORBISFILE_LDFLAGS}
+            ${LUAJIT_LDFLAGS}
+            ${OPENAL_LDFLAGS}
+            ${BULLET_LDFLAGS}
+            ${GLEW_LDFLAGS}
             )
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 

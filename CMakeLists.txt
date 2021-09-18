@@ -18,6 +18,31 @@ else()
 set(ARCH_DIR "x86")
 endif()
 
+#additional include diretories
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(OPENAL REQUIRED openal)
+
+pkg_check_modules(BULLET REQUIRED bullet)
+include_directories(${BULLET_INCLUDE_DIRS})
+
+pkg_check_modules(OGG REQUIRED ogg)
+include_directories(${OGG_INCLUDE_DIRS})
+
+pkg_check_modules(VORBIS REQUIRED vorbis)
+include_directories(${VORBIS_INCLUDE_DIRS})
+
+# pkg_check_modules(VORBIS REQUIRED vorbisenc)
+
+pkg_check_modules(VORBISFILE REQUIRED vorbisfile)
+include_directories(${VORBISFILE_INCLUDE_DIRS})
+
+# luacompat 
+include_directories(libs/luacompat)
+
+pkg_check_modules(LUAJIT REQUIRED luajit)
+include_directories(${LUAJIT_INCLUDE_DIRS})
+
 # gameplay library
 add_subdirectory(gameplay)
 
